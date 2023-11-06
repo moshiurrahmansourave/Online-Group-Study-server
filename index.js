@@ -69,6 +69,15 @@ async function run() {
     })
     //update end
 
+    //delete
+    app.delete('/assignment/:id', async(req, res)=>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)}
+      const result = await assignmentCollection.deleteOne(query);
+      res.send(result)
+    })
+    //delete end
+
     app.get('/assignment/:id', async (req, res) =>{
         const id = req.params.id;
         const query = { _id: new ObjectId(id)}
