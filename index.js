@@ -68,6 +68,23 @@ async function run() {
       res.send(result);
     })
     //update end
+//---------------
+    app.get('/myassignment/:email',async(req, res)=>{
+      
+      const userEmail = req.params.email
+      
+      const result = await assignmentCollection.find({email:userEmail}).toArray()
+      res.send(result);
+    })
+
+    //-----------
+    app.get('/pendingassignment/:status',async (req, res)=>{
+      // const pending = req.params.status;
+      const result = await assignmentCollection.find({status:('Pending')}).toArray()
+      res.send(result)
+    })
+
+
 
     //delete
     app.delete('/assignment/:id', async(req, res)=>{
