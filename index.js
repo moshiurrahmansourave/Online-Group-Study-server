@@ -39,6 +39,36 @@ async function run() {
         res.send(result);
     })
 
+    //update
+    app.put('/assignment/:id', async(req, res) =>{
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id)}
+      const options = {upsert: true};
+      const updateProduct = req.body;
+      const Product = {
+        $set: {
+          title: updateProduct.title,
+           description: updateProduct.description,
+            marks: updateProduct.marks,
+             imgUrl: updateProduct.imgUrl,
+             quality: updateProduct.quality,
+             date: updateProduct.date
+        }
+      }
+
+      const result = await assignmentCollection.updateOne(filter, Product, options);
+      res.send(result);
+
+    })
+    //update information catch
+    app.get('/assignment/:id', async(req, res)=>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)}
+      const result = await assignmentCollection.findOne(query)
+      res.send(result);
+    })
+    //update end
+
     app.get('/assignment/:id', async (req, res) =>{
         const id = req.params.id;
         const query = { _id: new ObjectId(id)}
