@@ -68,6 +68,20 @@ async function run() {
       res.send(result);
     })
     //update end
+
+    app.patch('/assignment/:id',async (req, res)=>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)}
+      const updatedMarking = req.body
+      console.log(updatedMarking)
+      const updateDoc = {
+        $set: {
+         status: updatedMarking.status
+        },
+      };
+      const result = await assignmentCollection.updateOne(filter, updateDoc);
+      res.send(result)
+    })
 //---------------
     app.get('/myassignment/:email',async(req, res)=>{
       
